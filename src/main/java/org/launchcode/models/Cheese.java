@@ -1,15 +1,10 @@
 package org.launchcode.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
-/**
- * Created by LaunchCode
- */
 @Entity
 public class Cheese {
 
@@ -35,6 +30,8 @@ public class Cheese {
 
     public Cheese() { }
 
+    //getters & setters
+
     public int getId() {
         return id;
     }
@@ -55,7 +52,6 @@ public class Cheese {
         this.description = description;
     }
 
-    //getters and setters for category
     public Category getCategory() {
         return category;
     }
@@ -63,4 +59,5 @@ public class Cheese {
     public void setCategory (Category category) {
         this.category = category;
     }
+
 }
