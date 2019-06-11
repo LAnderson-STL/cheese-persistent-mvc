@@ -23,6 +23,9 @@ public class Cheese {
     @ManyToOne
     private Category category;
 
+    @ManyToMany(mappedBy = "cheeses")
+    private List<Menu> menus;
+
     public Cheese(String name, String description) {
         this.name = name;
         this.description = description;
@@ -30,7 +33,11 @@ public class Cheese {
 
     public Cheese() { }
 
-    //
+    //needed for access to delete cheese from menu
+
+    public List<Menu> getMenus() {
+        return  menus;
+       }
 
     //getters & setters
 
