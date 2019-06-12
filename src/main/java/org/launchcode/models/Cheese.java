@@ -26,18 +26,13 @@ public class Cheese {
     @ManyToMany(mappedBy = "cheeses")
     private List<Menu> menus;
 
+
     public Cheese(String name, String description) {
         this.name = name;
         this.description = description;
     }
 
     public Cheese() { }
-
-    //needed for access to delete cheese from menu
-
-    public List<Menu> getMenus() {
-        return  menus;
-       }
 
     //getters & setters
 
@@ -67,6 +62,12 @@ public class Cheese {
 
     public void setCategory (Category category) {
         this.category = category;
+    }
+
+    //needed for access to delete cheese from menu
+
+    public List<Menu> getMenus() {
+        return menus;
     }
 
 }

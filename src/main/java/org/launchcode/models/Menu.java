@@ -8,6 +8,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
 
+//LA2019
+
 @Entity
 public class Menu {
 
@@ -32,6 +34,10 @@ public class Menu {
         cheeses.add(item);
     }
 
+    //needed to delete cheese from menu
+
+    public void removeItem(Cheese item) { cheeses.remove(item); }
+
     //getters & setters
 
     public String getName() {
@@ -50,4 +56,7 @@ public class Menu {
         return cheeses;
     }
 
+
+
 }
+

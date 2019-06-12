@@ -1,8 +1,8 @@
-
 package org.launchcode.controllers;
 
 import org.launchcode.models.Category;
 import org.launchcode.models.Cheese;
+import org.launchcode.models.Menu;
 import org.launchcode.models.data.CategoryDao;
 import org.launchcode.models.data.CheeseDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,8 +57,8 @@ public class CheeseController {
             model.addAttribute("title", "Add Cheese");
             return "cheese/add";
         }
-        Category category = categoryDao.findOne(categoryId);
-        newCheese.setCategory(category);
+        Category cat = categoryDao.findOne(categoryId);
+        newCheese.setCategory(cat);
         cheeseDao.save(newCheese);
         return "redirect:";
     }
@@ -76,7 +76,10 @@ public class CheeseController {
         for(int cheeseId : cheeseIds) {
             Cheese cheese = cheeseDao.findOne(cheeseId);
 
+            for(Menu menu : cheese.getMenus()) {
+                menu.removeItem(cheese);
 
+            }
             cheeseDao.delete(cheeseId);
         }
         return "redirect:";
