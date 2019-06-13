@@ -50,7 +50,7 @@ public class MenuController {
         }
 
         menuDao.save(menu);
-        return "redirect: view/" + menu.getId();
+        return "redirect:view/" + menu.getId();
     }
 
     @RequestMapping(value = "view/{menuId}", method = RequestMethod.GET)
