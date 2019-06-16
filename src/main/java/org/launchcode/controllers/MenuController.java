@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-//LA2019
-
 @Controller
 @RequestMapping(value="menu")
 public class MenuController {
@@ -25,6 +23,7 @@ public class MenuController {
     @Autowired
     private MenuDao menuDao;
 
+
     @RequestMapping(value = "")
     public String index(Model model){
 
@@ -33,6 +32,7 @@ public class MenuController {
 
         return "menu/index";
     }
+
 
     @RequestMapping(value = "add", method = RequestMethod.GET)
     public String displayAddMenu(Model model){
@@ -46,12 +46,14 @@ public class MenuController {
     public String processAddMenu(@ModelAttribute @Valid Menu menu, Errors errors, Model model){
         if(errors.hasErrors()){
             model.addAttribute("title", "Add Menu");
+
             return "menu/add";
         }
 
         menuDao.save(menu);
         return "redirect:view/" + menu.getId();
     }
+
 
     @RequestMapping(value = "view/{menuId}", method = RequestMethod.GET)
     public String viewMenu(Model model, @PathVariable int menuId) {
@@ -62,6 +64,7 @@ public class MenuController {
         return "menu/view";
     }
 
+
     @RequestMapping(value = "add-item/{menuId}", method = RequestMethod.GET)
     public String displayAddItem(Model model, @PathVariable int menuId) {
         Menu menu = menuDao.findOne(menuId);
@@ -69,9 +72,9 @@ public class MenuController {
         model.addAttribute("form", form);
         model.addAttribute("title", "Add item to menu: " + menu.getName());
 
-
         return "menu/add-item";
     }
+
 
     @RequestMapping(value = "add-item", method = RequestMethod.POST)
     public String processAddItem(@ModelAttribute @Valid AddMenuItemForm form, Errors errors, Model model) {
@@ -87,7 +90,5 @@ public class MenuController {
         menuDao.save(menu);
 
         return "redirect:view/" + menu.getId();
-
     }
-
 }

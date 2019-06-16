@@ -30,6 +30,7 @@ public class CheeseController {
     @Autowired
     private CategoryDao menuDao;
 
+
     // Request path: /cheese
     @RequestMapping(value = "")
     public String index(Model model) {
@@ -41,13 +42,16 @@ public class CheeseController {
         return "cheese/index";
     }
 
+
     @RequestMapping(value = "add", method = RequestMethod.GET)
     public String displayAddCheeseForm(Model model) {
         model.addAttribute("title", "Add Cheese");
         model.addAttribute(new Cheese());
         model.addAttribute("categories", categoryDao.findAll());
+
         return "cheese/add";
     }
+
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public String processAddCheeseForm(@ModelAttribute  @Valid Cheese newCheese,
@@ -57,9 +61,10 @@ public class CheeseController {
             model.addAttribute("title", "Add Cheese");
             return "cheese/add";
         }
-        Category cat = categoryDao.findOne(categoryId);
-        newCheese.setCategory(cat);
+        Category category = categoryDao.findOne(categoryId);
+        newCheese.setCategory(category);
         cheeseDao.save(newCheese);
+
         return "redirect:";
     }
 
@@ -67,6 +72,7 @@ public class CheeseController {
     public String displayRemoveCheeseForm(Model model) {
         model.addAttribute("cheeses", cheeseDao.findAll());
         model.addAttribute("title", "Remove Cheese");
+
         return "cheese/remove";
     }
 
@@ -76,6 +82,7 @@ public class CheeseController {
         for(int cheeseId : cheeseIds) {
             Cheese cheese = cheeseDao.findOne(cheeseId);
 
+            //must remove cheese from menu to delete
             for(Menu menu : cheese.getMenus()) {
                 menu.removeItem(cheese);
 
